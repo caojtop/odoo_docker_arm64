@@ -6,12 +6,8 @@ on:
 #项目任务，任务之间可以并行调度
 jobs:
 
-  build:
-  #选择云端运行的环境
+  pre:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        odoo_version: ['16.0', '15.0', '14.0', '13.0', '12.0', '11.0', '10.0']
     steps:
     #uses代表使用一个模块，此处使用的是checkout模块，将github项目文件导入到当前环境中
     - uses: actions/checkout@v3
@@ -28,6 +24,14 @@ jobs:
      #这里用到了github的secrets功能，避免账户和密码随仓库泄露
        username: ${{ secrets.DOCKERHUB_USERNAME }}
        password: ${{ secrets.DOCKERHUB_TOKEN }}
+  build:
+    needs: pre
+  #选择云端运行的环境
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        odoo_version: ['16.0', '15.0', '14.0', '13.0', '12.0', '11.0', '10.0']
+    steps:
     - name: Build and push
       #导入这个模块来完成自动编译和推送
       uses: docker/build-push-action@v4
@@ -38,6 +42,10 @@ jobs:
           platforms: linux/arm64
           #指定用户/仓库名
           tags: cjtop/odoo:${{ matrix.odoo_version }}
+  des:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
     - name: Docker Hub Description
       #这里是通过md文件自动生成dockerhub描述的模块，也可以不需要
       uses: peter-evans/dockerhub-description@v3
