@@ -1,6 +1,8 @@
 FROM debian:stretch-slim
 LABEL org.opencontainers.image.authors="caojtop@qq.com"
 
+SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
+
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
 
