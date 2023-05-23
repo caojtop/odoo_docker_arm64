@@ -1,14 +1,9 @@
-FROM debian:stretch-slim
+FROM ubuntu:16.04
 LABEL org.opencontainers.image.authors="caojtop@qq.com"
 
-SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
-
-RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list \
-    && sed -i 's/security.debian.org/achive.debian.org/g' /etc/apt/sources.list \
-    && sed -i '/stretch-updates/d' /etc/apt/sources.list
-
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
-RUN apt-get update \
+RUN set -x; \
+        apt-get update \
         && apt-get upgrade -y \
         && apt-get install -y --no-install-recommends \
             ca-certificates \
@@ -25,7 +20,7 @@ RUN apt-get update \
             python-vobject \
             python-watchdog \
         && curl -o ps.deb http://launchpadlibrarian.net/109052632/python-support_1.0.15_all.deb \
-        && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.stretch_arm64.deb \
+        && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.xenial_arm64.deb \
         && apt-get install -y --no-install-recommends ./ps.deb \
         #&& echo '4d104ff338dc2d2083457b3b1e9baab8ddf14202 wkhtmltox.deb' | sha1sum -c - \
         #&& dpkg --force-depends -i wkhtmltox.deb \
