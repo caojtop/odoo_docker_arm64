@@ -6,8 +6,8 @@ SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
 
-RUN sed -i 's#deb.debian.org#archive.debian.org#g' /etc/apt/sources.list \
-    && sed -i 's#security.debian.org#achive.debian.org/debian-security#g' /etc/apt/sources.list \
+RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list \
+    && sed -i 's/security.debian.org/achive.debian.org/g' /etc/apt/sources.list \
     && sed -i '/stretch-updates/d' /etc/apt/sources.list
 
 # Install some deps, lessc and less-plugin-clean-css
