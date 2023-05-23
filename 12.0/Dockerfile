@@ -9,7 +9,7 @@ ENV LANG C.UTF-8
 # Use backports to avoid install some libs with pip
 RUN echo 'deb http://deb.debian.org/debian stretch-backports main' > /etc/apt/sources.list.d/backports.list
 
-# Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
+# Install some deps, lessc and less-plugin-clean-css
 RUN apt-get update \
         && apt-get install -y --no-install-recommends \
             ca-certificates \
@@ -31,8 +31,10 @@ RUN apt-get update \
             python3-watchdog \
             python3-xlrd \
             python3-xlwt \
-            xz-utils \
-        && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.stretch_arm64.deb \
+            xz-utils
+
+# Install wkhtmltopdf
+RUN curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.stretch_arm64.deb \
         && apt-get install -y --no-install-recommends ./wkhtmltox.deb \
         && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
