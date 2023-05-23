@@ -4,7 +4,8 @@ LABEL org.opencontainers.image.authors="caojtop@qq.com"
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
 RUN sed -i 's#deb.debian.org#archive.debian.org#g' /etc/apt/sources.list \
-    && sed -i 's#security.debian.org#achive.debian.org/debian-security#g' /etc/apt/sources.list
+    && sed -i 's#security.debian.org#achive.debian.org/debian-security#g' /etc/apt/sources.list \
+    && sed -i '/stretch-updates/d' /etc/apt/sources.list
 
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 RUN apt-get update \
