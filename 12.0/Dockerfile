@@ -16,6 +16,7 @@ RUN apt-get update \
             gnupg \
             libssl-dev \
             node-less \
+            npm \
             python3-num2words \
             python3-pip \
             python3-phonenumbers \
