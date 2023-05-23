@@ -6,8 +6,12 @@ SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
 
+RUN sed -i s/deb.debian.org/archive.debian.org/g /etc/apt/sources.list \
+    sed -i 's|security.debian.org|archive.debian.org/debian-security/|g' /etc/apt/sources.list
+    
 # Install some deps, lessc and less-plugin-clean-css
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update \
+        && apt-get install -y --no-install-recommends \
             ca-certificates \
             curl \
             dirmngr \
@@ -41,7 +45,7 @@ RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main' > /etc
         && gpg --batch --armor --export "${repokey}" > /etc/apt/trusted.gpg.d/pgdg.gpg.asc \
         && gpgconf --kill all \
         && rm -rf "$GNUPGHOME" \
-        #&& apt-get update  \
+        && apt-get update  \
         && apt-get install --no-install-recommends -y postgresql-client \
         && rm -f /etc/apt/sources.list.d/pgdg.list \
         && rm -rf /var/lib/apt/lists/*
@@ -55,7 +59,7 @@ RUN echo "deb http://deb.nodesource.com/node_8.x stretch main" > /etc/apt/source
     && gpg --batch --armor --export "${repokey}" > /etc/apt/trusted.gpg.d/nodejs.gpg.asc \
     && gpgconf --kill all \
     && rm -rf "$GNUPGHOME" \
-    #&& apt-get update \
+    && apt-get update \
     && apt-get install --no-install-recommends -y nodejs \
     && npm install -g rtlcss \
     && rm -rf /var/lib/apt/lists/*
@@ -66,7 +70,7 @@ ARG ODOO_RELEASE=20211006
 ARG ODOO_SHA=f32dcd82b04e9a93e17a7d4b3ab471dc20408253
 RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
         && echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
-        #&& apt-get update \
+        && apt-get update \
         && apt-get -y install --no-install-recommends ./odoo.deb \
         && rm -rf /var/lib/apt/lists/* odoo.deb
 
