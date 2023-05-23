@@ -100,6 +100,6 @@ jobs:
       uses: peter-evans/dockerhub-description@v3
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
-        repository: wmdscjhdpy/autologin
-        readme-filepath: ./doc/docker-readme.md
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        repository: cjtop/odoo
+        readme-filepath: ./README.md
