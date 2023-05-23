@@ -25,46 +25,46 @@ jobs:
      #这里用到了github的secrets功能，避免账户和密码随仓库泄露
        username: ${{ secrets.DOCKERHUB_USERNAME }}
        password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build 16.0 and push
-      #导入这个模块来完成自动编译和推送
-      uses: docker/build-push-action@v4
-      with:
-          context: ./16.0
-          push: true
-          #在这里通过加入需要编译的平台和前面配好的QEMU，buildx来达到多平台编译
-          platforms: linux/arm64
-          #指定用户/仓库名
-          tags: cjtop/odoo:latest,cjtop/odoo:16.0
-    - name: Build 15.0 and push
-      #导入这个模块来完成自动编译和推送
-      uses: docker/build-push-action@v4
-      with:
-          context: ./15.0
-          push: true
-          #在这里通过加入需要编译的平台和前面配好的QEMU，buildx来达到多平台编译
-          platforms: linux/arm64
-          #指定用户/仓库名
-          tags: cjtop/odoo:15.0
-    - name: Build 14.0 and push
-      #导入这个模块来完成自动编译和推送
-      uses: docker/build-push-action@v4
-      with:
-          context: ./14.0
-          push: true
-          #在这里通过加入需要编译的平台和前面配好的QEMU，buildx来达到多平台编译
-          platforms: linux/arm64
-          #指定用户/仓库名
-          tags: cjtop/odoo:14.0
-    - name: Build 13.0 and push
-      #导入这个模块来完成自动编译和推送
-      uses: docker/build-push-action@v4
-      with:
-          context: ./13.0
-          push: true
-          #在这里通过加入需要编译的平台和前面配好的QEMU，buildx来达到多平台编译
-          platforms: linux/arm64
-          #指定用户/仓库名
-          tags: cjtop/odoo:13.0
+    # - name: Build 16.0 and push
+    #   #导入这个模块来完成自动编译和推送
+    #   uses: docker/build-push-action@v4
+    #   with:
+    #       context: ./16.0
+    #       push: true
+    #       #在这里通过加入需要编译的平台和前面配好的QEMU，buildx来达到多平台编译
+    #       platforms: linux/arm64
+    #       #指定用户/仓库名
+    #       tags: cjtop/odoo:latest,cjtop/odoo:16.0
+    # - name: Build 15.0 and push
+    #   #导入这个模块来完成自动编译和推送
+    #   uses: docker/build-push-action@v4
+    #   with:
+    #       context: ./15.0
+    #       push: true
+    #       #在这里通过加入需要编译的平台和前面配好的QEMU，buildx来达到多平台编译
+    #       platforms: linux/arm64
+    #       #指定用户/仓库名
+    #       tags: cjtop/odoo:15.0
+    # - name: Build 14.0 and push
+    #   #导入这个模块来完成自动编译和推送
+    #   uses: docker/build-push-action@v4
+    #   with:
+    #       context: ./14.0
+    #       push: true
+    #       #在这里通过加入需要编译的平台和前面配好的QEMU，buildx来达到多平台编译
+    #       platforms: linux/arm64
+    #       #指定用户/仓库名
+    #       tags: cjtop/odoo:14.0
+    # - name: Build 13.0 and push
+    #   #导入这个模块来完成自动编译和推送
+    #   uses: docker/build-push-action@v4
+    #   with:
+    #       context: ./13.0
+    #       push: true
+    #       #在这里通过加入需要编译的平台和前面配好的QEMU，buildx来达到多平台编译
+    #       platforms: linux/arm64
+    #       #指定用户/仓库名
+    #       tags: cjtop/odoo:13.0
     - name: Build 12.0 and push
       #导入这个模块来完成自动编译和推送
       uses: docker/build-push-action@v4
